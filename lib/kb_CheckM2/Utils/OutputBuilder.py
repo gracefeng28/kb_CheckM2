@@ -21,9 +21,9 @@ class OutputBuilder(object):
     run.  This includes running any necssary plotting utilities of CheckM.
     '''
 
-    def __init__(self, output_dir, plots_dir, scratch_dir, callback_url):
+    def __init__(self, output_dir, scratch_dir, callback_url):
         self.output_dir = output_dir
-        self.plots_dir = plots_dir
+        #self.plots_dir = plots_dir
         self.scratch = scratch_dir
         self.callback_url = callback_url
         self.DIST_PLOT_EXT = '.ref_dist_plots.png'

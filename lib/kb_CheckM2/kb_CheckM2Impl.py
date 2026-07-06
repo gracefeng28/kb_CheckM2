@@ -6,7 +6,7 @@ import logging
 import subprocess
 import glob
 import shutil
-
+import pandas as pd
 from installed_clients.WorkspaceClient import Workspace
 from installed_clients.DataFileUtilClient import DataFileUtil
 from installed_clients.AssemblyUtilClient import AssemblyUtil
@@ -159,7 +159,7 @@ class kb_CheckM2:
         return out_dir
     def _build_report_new(self, workspace_name, out_dir):
         pass
-        outputBuilder = OutputBuilder(out_dir, plots_dir, self.scratch, self.callback_url)
+        outputBuilder = OutputBuilder(out_dir, self.scratch, self.callback_url)
 
     def _build_report(self, workspace_name, out_dir):
         report_tsv = os.path.join(out_dir, 'quality_report.tsv')
@@ -171,9 +171,27 @@ class kb_CheckM2:
             summary_lines = lines[:min(len(lines), 51)]
 
         message = 'CheckM2 quality assessment completed.\n\n'
-        message += 'Results summary:\n'
-        message += ''.join(summary_lines) if summary_lines else '(no results)'
 
+        #message += 'Results summary:\n'
+        #message += ''.join(summary_lines) if summary_lines else '(no results)'
+        df = pd.read_csv(report_tsv, sep='\t')
+        html_table = df.to_html(index=False)
+
+        html_report = list()
+        output_directory = os.path.join(self.shared_folder, str(uuid.uuid4()))
+        os.mkdir(output_directory)
+        result_file_path = os.path.join(output_directory, 'report.html')
+        reportDirectory = "/kb/module/lib/kb_CheckM2/reports/"
+        with open(result_file_path, 'w') as result_file:
+            with open(os.path.join(reportDirectory, 'view_template.html'), 'r') as report_template_file:
+                
+                result_file.write(report_template_file.read().format(table=html_table))
+        report_shock_id = self.dfu.file_to_shock({'file_path': output_directory,
+                                                    'pack': 'zip'})['shock_id']
+        html_report.append({'shock_id': report_shock_id,
+                                'name': os.path.basename(result_file_path),
+                                'label': os.path.basename(result_file_path),
+                                'description': 'HTML summary report for transform data app'})
         file_links = []
         for fname in os.listdir(out_dir):
             fpath = os.path.join(out_dir, fname)
@@ -187,6 +205,7 @@ class kb_CheckM2:
 
         report_info = self.kbr.create_extended_report({
             'message': message,
+            'html_links': html_report,
             'file_links': file_links,
             'workspace_name': workspace_name,
             'report_object_name': 'kb_CheckM2_report_' + uuid.uuid4().hex
