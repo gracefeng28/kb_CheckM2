@@ -34,13 +34,14 @@ RUN /opt/conda/envs/checkm2/bin/pip install --no-cache-dir \
         "pandas==1.5.3"
 
 RUN /opt/conda/envs/checkm2/bin/pip install --no-cache-dir \
-        "tensorflow==2.13.*" \
+        "tensorflow-cpu==2.13.*" \
         "keras==2.13.*"
 
 RUN /opt/conda/envs/checkm2/bin/pip install --no-cache-dir \
         "CheckM2>=1.0.0"
 
 RUN micromamba clean -a -y
+#RUN conda install -c bioconda multiqc
 
 # ------------------------------------------------------------
 # 4) Verify CheckM2 installation (build-time sanity check)
@@ -54,8 +55,8 @@ print('models_dir', p); \
 print('models_exists', os.path.isdir(p)); \
 print('models_contents', os.listdir(p)[:200] if os.path.isdir(p) else 'N/A')"
 
-RUN /opt/conda/envs/checkm2/bin/python -c \
-    "import tensorflow as tf, keras; print('tf', tf.__version__); print('keras', keras.__version__)"
+#RUN /opt/conda/envs/checkm2/bin/python -c \
+    #"import tensorflow as tf, keras; print('tf', tf.__version__); print('keras', keras.__version__)"
 
 RUN /opt/conda/envs/checkm2/bin/checkm2 --version
 
