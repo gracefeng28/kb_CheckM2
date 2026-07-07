@@ -164,11 +164,11 @@ class kb_CheckM2:
     def _build_report(self, workspace_name, out_dir):
         report_tsv = os.path.join(out_dir, 'quality_report.tsv')
 
-        summary_lines = []
-        if os.path.exists(report_tsv):
-            with open(report_tsv, 'r') as f:
-                lines = f.readlines()
-            summary_lines = lines[:min(len(lines), 51)]
+        #summary_lines = []
+        #if os.path.exists(report_tsv):
+            #with open(report_tsv, 'r') as f:
+                #lines = f.readlines()
+            #summary_lines = lines[:min(len(lines), 51)]
 
         message = 'CheckM2 quality assessment completed.\n\n'
 
@@ -191,7 +191,7 @@ class kb_CheckM2:
         html_report.append({'shock_id': report_shock_id,
                                 'name': os.path.basename(result_file_path),
                                 'label': os.path.basename(result_file_path),
-                                'description': 'HTML summary report for transform data app'})
+                                'description': 'HTML summary report for CheckM2 quality assessment results'})
         file_links = []
         for fname in os.listdir(out_dir):
             fpath = os.path.join(out_dir, fname)
@@ -207,6 +207,7 @@ class kb_CheckM2:
             'message': message,
             'html_links': html_report,
             'file_links': file_links,
+            'html_window_height': 700,
             'workspace_name': workspace_name,
             'report_object_name': 'kb_CheckM2_report_' + uuid.uuid4().hex
         })
