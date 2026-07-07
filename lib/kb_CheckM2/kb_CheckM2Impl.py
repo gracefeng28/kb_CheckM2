@@ -13,7 +13,7 @@ from installed_clients.AssemblyUtilClient import AssemblyUtil
 from installed_clients.GenomeFileUtilClient import GenomeFileUtil
 from installed_clients.KBaseReportClient import KBaseReport
 from installed_clients.MetagenomeUtilsClient import MetagenomeUtils
-from lib.kb_CheckM2.Utils.OutputBuilder import OutputBuilder
+
 #END_HEADER
 
 
@@ -157,9 +157,6 @@ class kb_CheckM2:
 
         self.logger.info('CheckM2 completed. Output dir: %s', out_dir)
         return out_dir
-    def _build_report_new(self, workspace_name, out_dir):
-        pass
-        outputBuilder = OutputBuilder(out_dir, self.scratch, self.callback_url)
 
     def _build_report(self, workspace_name, out_dir):
         report_tsv = os.path.join(out_dir, 'quality_report.tsv')
@@ -184,7 +181,6 @@ class kb_CheckM2:
         reportDirectory = "/kb/module/lib/kb_CheckM2/reports/"
         with open(result_file_path, 'w') as result_file:
             with open(os.path.join(reportDirectory, 'view_template.html'), 'r') as report_template_file:
-                
                 result_file.write(report_template_file.read().format(table=html_table))
         report_shock_id = self.dfu.file_to_shock({'file_path': output_directory,
                                                     'pack': 'zip'})['shock_id']
