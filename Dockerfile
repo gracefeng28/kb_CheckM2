@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip install jsonrpcbase
 
 # ------------------------------------------------------------
-# 2) micromamba bootstrap
+# 2) micromamba bootstrap 
 # ------------------------------------------------------------
 ENV MAMBA_ROOT_PREFIX=/opt/conda
 ENV MAMBA_NO_BANNER=1
