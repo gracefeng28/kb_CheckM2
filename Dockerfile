@@ -19,9 +19,8 @@ ENV MAMBA_ROOT_PREFIX=/opt/conda
 ENV MAMBA_NO_BANNER=1
 ENV MAMBA_DOCKERFILE_ACTIVATE=0
 
-ADD https://micro.mamba.pm/api/micromamba/linux-64/latest /tmp/micromamba.tar.bz2
-RUN tar -xvjf /tmp/micromamba.tar.bz2 -C /usr/local/bin/ --strip-components=1 bin/micromamba && \
-    chmod +x /usr/local/bin/micromamba && rm -f /tmp/micromamba.tar.bz2
+ADD https://github.com/mamba-org/micromamba-releases/releases/latest/download/micromamba-linux-64 /usr/local/bin/micromamba
+RUN chmod +x /usr/local/bin/micromamba
 
 # ------------------------------------------------------------
 # 3) Create CheckM2 conda environment
