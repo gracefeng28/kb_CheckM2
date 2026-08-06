@@ -283,14 +283,14 @@ class kb_CheckM2:
         return [result]
         #END run_checkm2_predict
 
-    def run_kb_CheckM2(self, ctx, params):
-        """
-        Alias method to match KBase naming convention.
-        """
-        #BEGIN run_kb_CheckM2
-        return self.run_checkm2_predict(ctx, params)
+    # def run_kb_CheckM2(self, ctx, params):
+    #     """
+    #     Alias method to match KBase naming convention.
+    #     """
+    #     #BEGIN run_kb_CheckM2
+    #     return self.run_checkm2_predict(ctx, params)
     
-        #END run_kb_CheckM2
+    #     #END run_kb_CheckM2
 
     def status(self, ctx):
         #BEGIN_STATUS

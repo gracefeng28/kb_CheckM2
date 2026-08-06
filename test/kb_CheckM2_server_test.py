@@ -68,5 +68,5 @@ class kb_CheckM2Test(unittest.TestCase):
         #
         # Check returned data with
         # self.assertEqual(ret[...], ...) or other unittest methods
-        ret = self.serviceImpl.run_kb_CheckM2(self.ctx, {'workspace_name': self.wsName,
+        ret = self.serviceImpl.run_checkm2_predict(self.ctx, {'workspace_name': self.wsName,
                                                              'parameter_1': 'Hello World!'})
