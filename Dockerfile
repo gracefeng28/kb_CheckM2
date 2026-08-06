@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip install jsonrpcbase
+RUN pip install "numpy<1.24" "pandas==1.5.3"
 
 # ------------------------------------------------------------
 # 2) micromamba bootstrap 

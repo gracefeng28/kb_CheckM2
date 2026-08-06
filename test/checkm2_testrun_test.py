@@ -3,7 +3,6 @@
 import os
 import subprocess
 import unittest
-import pandas 
 
 
 class CheckM2TestrunTest(unittest.TestCase):
